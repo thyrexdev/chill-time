@@ -6,6 +6,31 @@ import useSWR from 'swr';
 import Card from "@/components/Card";
 import Paginate from "@/components/Paginate";
 
+// Define TypeScript interfaces
+interface Movie {
+    id: number;
+    title: string;
+    poster_path: string | null;
+    genre_ids: number[];
+    original_language: string;
+    // Add other properties you use from the API
+}
+
+interface Genre {
+    id: number;
+    name: string;
+}
+
+interface MoviesResponse {
+    results: Movie[];
+    total_pages: number;
+    // Add other properties you use from the API
+}
+
+interface GenresResponse {
+    genres: Genre[];
+}
+
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 const Page = () => {
@@ -17,14 +42,14 @@ const Page = () => {
     const selectedGenre = searchParams.get('genre') || 'allGenres';
     const selectedLang = searchParams.get('lang') || 'allLangs';
 
-    // Fetch movies data
-    const { data: movies, isLoading: moviesLoading } = useSWR(
+    // Fetch movies data with proper typing
+    const { data: movies, isLoading: moviesLoading } = useSWR<MoviesResponse>(
         `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&page=${currentPage}`,
         fetcher
     );
 
-    // Fetch genres
-    const { data: genresData } = useSWR(
+    // Fetch genres with proper typing
+    const { data: genresData } = useSWR<GenresResponse>(
         `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`,
         fetcher
     );
@@ -37,10 +62,10 @@ const Page = () => {
         router.push(`?${params.toString()}`);
     };
 
-    // Filter movies client-side
+    // Filter movies client-side with proper typing
     const filteredMovies = React.useMemo(() => {
         if (!movies?.results) return [];
-        return movies.results.filter((movie: any) => {
+        return movies.results.filter((movie: Movie) => {
             const genreMatch = selectedGenre === 'allGenres' ||
                 movie.genre_ids.includes(Number(selectedGenre));
             const langMatch = selectedLang === 'allLangs' ||
@@ -90,8 +115,8 @@ const Page = () => {
                             value={selectedGenre}
                         >
                             <option value="allGenres">All Genres</option>
-                            {genresData?.genres?.map((genre: any) => (
-                                <option key={genre.id} value={genre.id}>
+                            {genresData?.genres?.map((genre: Genre) => (
+                                <option key={genre.id} value={genre.id.toString()}>
                                     {genre.name}
                                 </option>
                             ))}
@@ -101,12 +126,11 @@ const Page = () => {
 
                 {/* Movies Grid */}
                 <div className="grid grid-cols-2 sm:grid-cols-6 lg:grid-cols-8 gap-4 md:gap-6">
-                    {filteredMovies.map((movie: any) => (
-                        console.log(movie),
+                    {filteredMovies.map((movie: Movie) => (
                         <Card
                             key={movie.id}
                             type="movie"
-                            id={movie.id}
+                            id={movie.id.toString()}
                             poster={
                                 movie.poster_path
                                     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`

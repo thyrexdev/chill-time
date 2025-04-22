@@ -9,7 +9,7 @@ interface MovieContentProps {
     description: string;
 }
 
-const MovieContent: React.FC<MovieContentProps> = ({ id, title, year, length, genre, description }) => {
+const MovieContent: React.FC<MovieContentProps> = ({ id, title, year, genre, description }) => {
     return (
         <div className=" relative opacity-[1] scale-[1] z-50">
             <h2 className=" text-white text-4xl mb-[20px] m-w-[250px]">{title}</h2>

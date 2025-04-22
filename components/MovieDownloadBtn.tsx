@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import Link from "next/link";
+
+interface Quality {
+    _id: string;
+    type: string;
+    download: string;
+}
 
 interface QualitySelectionModalProps {
-    qualities: any[];
-    onSelectQuality: (downloadLink: string) => void;
+    qualities: Quality[];
+    onSelectQuality: (watchLink: string) => void;
 }
 
 const QualitySelectionModal: React.FC<QualitySelectionModalProps> = ({ qualities, onSelectQuality }) => {
@@ -13,7 +18,7 @@ const QualitySelectionModal: React.FC<QualitySelectionModalProps> = ({ qualities
             <div className="bg-red-600 p-8 rounded-lg text-white">
                 <h3 className="mb-4 text-lg flex px-9">اختار الجودة:</h3>
                 <div className="flex flex-wrap justify-center">
-                    {qualities.map((quality: any) => (
+                    {qualities.map((quality: Quality) => (
                         <button
                             key={quality._id}
                             className="hover:bg-white hover:text-red-600 border border-white rounded-lg px-4 py-2 mb-2 mr-2 transition duration-300 bg-red-600 text-white"
@@ -32,13 +37,12 @@ const MovieDownloadBtn = () => {
     const { id } = useParams();
     const router = useRouter();
     const [loading, setLoading] = useState(false);
-    const [qualities, setQualities] = useState<any[]>([]);
+    const [qualities, setQualities] = useState<Quality[]>([]);
     const [showQualitySelection, setShowQualitySelection] = useState(false);
 
     const handleDownloadNow = () => {
         setLoading(true);
-        // For demonstration, I'll use mock data
-        const mockQualities = [
+        const mockQualities: Quality[] = [
             { _id: "1", type: "720p", download: `/movie/${id}/download/720p` },
             { _id: "2", type: "1080p", download: `/movie/${id}/download/1080p` }
         ];
@@ -49,7 +53,6 @@ const MovieDownloadBtn = () => {
 
     const handleSelectQuality = (downloadLink: string) => {
         setShowQualitySelection(false);
-        // Use router.push to add to history instead of replacing
         router.push(downloadLink);
     };
 

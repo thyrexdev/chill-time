@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 
 const SeriesWatchBtn = () => {
@@ -7,8 +7,6 @@ const SeriesWatchBtn = () => {
     const { id } = useParams()
 
     const router = useRouter();
-
-    const [ seasons, setSeasonsData ] = useState([]);
 
     return (
         <>

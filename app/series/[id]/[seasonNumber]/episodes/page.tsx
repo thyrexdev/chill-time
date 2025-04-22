@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import useSWR from 'swr';
 import Head from 'next/head';
+import Image from 'next/image'; // Replaced img with Next.js Image component
 import Episode from '@/components/Episode';
 import { ChevronLeft, Calendar, Clock, Star, X } from 'lucide-react';
 
@@ -94,7 +95,8 @@ export default function EpisodesMenu() {
                 month: 'long',
                 day: 'numeric'
             }).format(date);
-        } catch (e) {
+        } catch (error) {
+            console.error('Error formatting date:', error);
             return 'غير معروف';
         }
     };
@@ -239,10 +241,13 @@ export default function EpisodesMenu() {
                             {/* Series info card */}
                             <div className="mt-6 bg-gray-900/80 backdrop-blur-sm rounded-xl p-6 shadow-lg">
                                 <div className="aspect-[2/3] mb-4 overflow-hidden rounded-lg">
-                                    <img
+                                    <Image
                                         src={posterUrl}
                                         alt={seriesData.name}
+                                        width={500}
+                                        height={750}
                                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                                        priority
                                     />
                                 </div>
                                 <h3 className="text-xl font-bold mb-2 line-clamp-2">{seriesData.name}</h3>
@@ -276,10 +281,13 @@ export default function EpisodesMenu() {
                                 <div className="flex flex-col md:flex-row gap-6">
                                     {/* Season poster - for medium screens and up */}
                                     <div className="hidden md:block w-40 h-60 flex-shrink-0">
-                                        <img
+                                        <Image
                                             src={seasonPosterUrl}
                                             alt={`${seriesData.name} - ${seasonData.name}`}
+                                            width={300}
+                                            height={450}
                                             className="w-full h-full object-cover rounded-lg shadow-md"
+                                            priority
                                         />
                                     </div>
 

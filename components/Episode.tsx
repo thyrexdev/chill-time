@@ -2,6 +2,7 @@
 
 import React, {useState} from "react";
 import {useParams, useRouter} from 'next/navigation'
+import Image from "next/image";
 
 interface EpisodeProps {
     episodeNumber: number,
@@ -13,7 +14,7 @@ interface EpisodeProps {
     rating?: number
 }
 
-const Episode: React.FC<EpisodeProps> = ({episodeNumber, title, description, img, runtime, airDate, rating}) => {
+const Episode: React.FC<EpisodeProps> = ({episodeNumber, title, description, img}) => {
     const {id, seasonNumber} = useParams();
     const [showMenu, setShowMenu] = useState(false);
     const [selectedOption, setSelectedOption] = useState<string>('null'); // null: not selected, "download": تحميل, "watch": مشاهدة
@@ -78,9 +79,11 @@ const Episode: React.FC<EpisodeProps> = ({episodeNumber, title, description, img
     return (
         <>
             <div className="lg:flex lg:items-center gap-[50px] pb-[40px]">
-                <img
+                <Image
                     onClick={toggleMenu}
                     className="lg:w-[320px] lg:h-[190px] rounded-2xl cursor-pointer"
+                    width={320}
+                    height={190}
                     id="img"
                     alt={`${episodeNumber}`}
                     src={img}

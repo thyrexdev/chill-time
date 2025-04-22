@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Banner from "@/components/Banner";
 import Card from "@/components/Card";
 import Link from "next/link";
-import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper/modules";
+import { Pagination, Scrollbar, A11y, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/bundle";
@@ -114,16 +114,11 @@ const Home = () => {
     }, [API_KEY]);
 
     // Helper function to get genre names from IDs
-    const getGenreNames = (genreIds: number[]) => {
+    const getGenreNames = (genreIds: number[]): string[] => {
         return genreIds
-            .map(id => genres.find(genre => genre.id === id)?.name)
-            .filter(Boolean)
-            .slice(0, 2); // Limit to 2 genres for UI purposes
-    };
-
-    // Helper to format year from date
-    const formatYear = (dateString: string) => {
-        return dateString ? new Date(dateString).getFullYear() : '';
+            .map(id => genres.find(genre => genre.id === id)?.name || '')
+            .filter(name => name !== '') // Remove empty strings
+            .slice(0, 2); // Limit to 2 genres
     };
 
     // Helper to format runtime
@@ -162,6 +157,7 @@ const Home = () => {
                                 genre={getGenreNames(movie.genre_ids)}
                                 description={movie.overview}
                                 rating={movie.vote_average}
+                                year={movie.release_date}
                             />
                         </SwiperSlide>
                     ))}

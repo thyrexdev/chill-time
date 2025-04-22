@@ -24,7 +24,7 @@ interface Actor {
     };
 }
 
-const page = () => {
+const Page = () => {
     const params = useParams();
     const id = params.id as string;
 
@@ -87,4 +87,4 @@ const page = () => {
     )
 };
 
-export default page;
+export default Page;

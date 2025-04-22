@@ -8,8 +8,8 @@ import SeriesDownloadBtn from "@/components/SeriesDownloadBtn";
 import Head from 'next/head';
 import {useParams} from "next/navigation";
 import useSWR from "swr";
-import MovieWatchBtn from "@/components/MovieWatchBtn";
-import MovieDownloadbtn from "@/components/MovieDownloadBtn";
+import Image from 'next/image';
+
 
 // Define TypeScript interfaces
 interface Actor {
@@ -183,10 +183,12 @@ export default function SeriesPage() {
                         {/* Poster Column */}
                         <div className="flex flex-col items-center lg:items-start">
                             <div className="relative">
-                                <img
+                                <Image
                                     className="w-64 h-auto rounded-2xl shadow-2xl shadow-blue-500/10"
                                     alt={seriesData.name}
                                     src={posterUrl}
+                                    width={500} // Set appropriate width
+                                    height={750} // Set appropriate height
                                     onError={(e) => {
                                         (e.target as HTMLImageElement).src = '/fallback-poster.jpg';
                                     }}
