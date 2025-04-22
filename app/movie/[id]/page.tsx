@@ -126,7 +126,8 @@ const Page = () => {
                             {/* Poster with shadow effect */}
                             <div className="relative">
                                 <Image
-                                    fill
+                                    width={500}
+                                    height={750}
                                     className="w-64 h-auto rounded-2xl shadow-2xl shadow-blue-500/10"
                                     alt={movieData.title}
                                     src={posterUrl}

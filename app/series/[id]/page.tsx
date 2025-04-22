@@ -187,8 +187,8 @@ export default function SeriesPage() {
                                     className="w-64 h-auto rounded-2xl shadow-2xl shadow-blue-500/10"
                                     alt={seriesData.name}
                                     src={posterUrl}
-                                    width={500} // Set appropriate width
-                                    height={750} // Set appropriate height
+                                    width={500}
+                                    height={750}
                                     onError={(e) => {
                                         (e.target as HTMLImageElement).src = '/fallback-poster.jpg';
                                     }}
