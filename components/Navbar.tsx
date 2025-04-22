@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Search, Home, Film, Tv, Heart, User, Menu, X, ChevronDown, LogOut, Settings, Clock } from 'lucide-react';
+import Image from "next/image";
 
 interface NavbarProps {
     userLoggedIn?: boolean;
@@ -43,8 +44,6 @@ const Navbar: React.FC<NavbarProps> = ({
     const handleSearchSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (searchQuery.trim()) {
-            // Implement your search navigation here
-            // router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
             setSearchQuery('');
             setSearchOpen(false);
         }
@@ -121,7 +120,7 @@ const Navbar: React.FC<NavbarProps> = ({
                                 >
                                     <span className="text-white text-sm">{userName}</span>
                                     <div className="h-8 w-8 rounded-full overflow-hidden bg-gray-700 flex-shrink-0">
-                                        <img src={userAvatar} alt={userName} className="h-full w-full object-cover" />
+                                        <Image fill src={userAvatar} alt={userName} className="h-full w-full object-cover" />
                                     </div>
                                     <ChevronDown size={16} className={`text-gray-400 transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} />
                                 </button>
@@ -209,7 +208,7 @@ const Navbar: React.FC<NavbarProps> = ({
                                     <div className="border-t border-gray-800 pt-2 mt-2">
                                         <div className="flex items-center px-3 py-3">
                                             <div className="h-10 w-10 rounded-full overflow-hidden bg-gray-700 flex-shrink-0">
-                                                <img src={userAvatar} alt={userName} className="h-full w-full object-cover" />
+                                                <Image fill src={userAvatar} alt={userName} className="h-full w-full object-cover" />
                                             </div>
                                             <span className="mr-3 text-white font-medium">{userName}</span>
                                         </div>

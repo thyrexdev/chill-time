@@ -7,7 +7,7 @@ interface IPaginate {
     createPageUrl?: (pageNumber: number) => string
 }
 
-const Paginate = ({currentPage, totalPages, pageType, createPageUrl}: IPaginate) => {
+const Paginate = ({currentPage, totalPages, pageType}: IPaginate) => {
     return (
         <div className='flex justify-center gap-4 mt-6 mb-6'>
             {currentPage > 1 && (

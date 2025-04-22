@@ -7,6 +7,7 @@ import ActorCard from "@/components/ActorCard";
 import Head from 'next/head';
 import { useParams } from 'next/navigation';
 import useSWR from 'swr';
+import Image from "next/image";
 
 // Define TypeScript interfaces for TMDB response
 interface Movie {
@@ -31,7 +32,6 @@ interface MovieCredits {
     cast: Actor[];
 }
 
-// Fetcher function for SWR
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 const Page = () => {
@@ -125,7 +125,8 @@ const Page = () => {
                         <div className="flex flex-col items-center lg:items-start">
                             {/* Poster with shadow effect */}
                             <div className="relative">
-                                <img
+                                <Image
+                                    fill
                                     className="w-64 h-auto rounded-2xl shadow-2xl shadow-blue-500/10"
                                     alt={movieData.title}
                                     src={posterUrl}
