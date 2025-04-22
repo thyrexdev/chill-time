@@ -1,8 +1,11 @@
 // app/movies/page.tsx
-import dynamic from 'next/dynamic';
-
-const MovieClient = dynamic(() => import('./MovieClient'), { ssr: false });
+import React, { Suspense } from 'react';
+import MovieClient from './MovieClient';
 
 export default function MoviesPage() {
-    return <MovieClient />;
+    return (
+        <Suspense fallback={<div className="text-white text-center mt-10">Loading movies...</div>}>
+            <MovieClient />
+        </Suspense>
+    );
 }
