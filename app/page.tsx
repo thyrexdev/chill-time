@@ -10,7 +10,6 @@ import "swiper/css";
 import "swiper/css/bundle";
 import './globals.css';
 
-// Define TypeScript interfaces for TMDB responses
 interface Movie {
     id: string;
     title: string;
